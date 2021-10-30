@@ -190,7 +190,7 @@ module.exports = {
                 // console.log('same folder: ', runFromSameFolder);
 
                 if (!fs.existsSync(CONFIG_FILE)) {
-                    console.log('------> Generating config file');
+                    // console.log('------> Generating config file');
                     // TODO: parse from command line arguments to customize DATAROOT, locales, LOG, templates 
                     global.config = this.generateConfig(
                         CONFIG_FILE,
@@ -205,13 +205,13 @@ module.exports = {
                     );
 
                 } else {
-                    console.log('');
-                    console.log('<------ loading config file');
+                    // console.log('');
+                    // console.log('<------ loading config file');
                     let configFileStr = fs.readFileSync(CONFIG_FILE);
                     global.config = JSON.parse(configFileStr);
                 }
 
-                console.log('***** raw config:', global.config);
+                // console.log('***** raw config:', global.config);
 
                 var contentfolder = global.config.general.samefolder === true ? 
                     contentfolder = startUpPath :
