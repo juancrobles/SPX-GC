@@ -348,8 +348,7 @@ module.exports = {
   lang: function (str) {
     try {
       const spxlangfile = config.general.langfile || 'english.json';
-      let langpath = path.join(this.getStartUpFolder(), 'locales', spxlangfile); // fails in pkg macOS
-
+      let langpath = path.join(config.general.langfolder, spxlangfile); // fails in pkg macOS      
       var lang = require(langpath);
       json = 'lang.' + str;
       return eval(json) || str;  
@@ -361,7 +360,7 @@ module.exports = {
 
 getStartUpFolder: function () {
   // using launch folder from config file
-  return config.general.launchfolder;
+  return config.general.contentfolder;
 },
 
 
@@ -416,8 +415,7 @@ playAudio: async function (wavFileName, msg='') {
     // request ..... a name of soundFX
     // return ...... plays audio on the server
     // Usage ....... spx. -or- this.playAudio('beep.wav', 'Log message');
-    let cwd = this.getStartUpFolder();
-    let AudioFilePath = path.join(cwd, 'ASSETS', wavFileName);
+    let AudioFilePath = path.join(config.general.assetsfolder, wavFileName);
 
     // EXTERNAL AUDIO PLAYER IS CURRENTLY DISABLED. -- See also view-appconfig.
     // let AudioPlayPath = path.normalize(config.general.audioplayer);

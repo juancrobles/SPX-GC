@@ -69,7 +69,7 @@ const spx = require('./utils/spx_server_functions.js');
 
 // STATICS
 app.use(express.static(path.join(__dirname,('static'))))                    // the usual css/js stuff... embedded in pkg package
-app.use(express.static(path.resolve(spx.getStartUpFolder(),'ASSETS')))      // http root in startup folder / ASSETS
+app.use(express.static(path.resolve(config.general.assetsfolder)))      // http root in startup folder / ASSETS
 
 const ipad = ip.address();
 const open = require('open');
@@ -429,7 +429,7 @@ app.engine('handlebars', exphbs({
       // Loads init.js files from all sub folders of ASSETS/plugins/<plugName>/
       let html = '';
       try {
-        let BrowseFolder = path.join(spx.getStartUpFolder(), 'ASSETS', 'plugins');
+        let BrowseFolder = path.join(config.general.assetsfolder, 'plugins');
         const list = spx.GetFilesAndFolders(BrowseFolder);
         list.foldArr.forEach(pluginName => {
           if ( pluginName.charAt(0) == '_' || pluginName === 'lib' ) {
@@ -582,7 +582,7 @@ app.engine('handlebars', exphbs({
       let assetPath = path.normalize(assetfolder || '');
       let selectedValue = value;
       // let fullPath = path.join(__dirname, 'ASSETS', assetPath); // failed in PKG version
-      let fullPath = path.join(spx.getStartUpFolder(), 'ASSETS', assetPath); // fixed (again in 1.0.12)
+      let fullPath = path.join(config.general.assetsfolder, assetPath); // fixed (again in 1.0.12)
       let fileList = spx.getFileList(fullPath, extension);
       if (fileList) {
         fileList.forEach((fileRef,index) => {
@@ -683,7 +683,7 @@ var server = app.listen(port, (err) => {
   'Template Store ......... https://spxgc.com/store\n' +
   'Knowledge Base ......... https://spxgc.tawk.help\n' +
   `Config file ............ ${configfileref}\n`  +
-  `Cfg / launch folder .... ${config.general.launchfolder}\n`  +
+  `Cfg / contents folder .. ${config.general.contentfolder}\n`  +
   `Cfg / locale ........... ${config.general.langfile}\n`  +
   `Cfg / locale folder .... ${config.general.langfolder}\n`  +
   `Cfg / hostname ......... ${config.general.hostname}\n`  +
